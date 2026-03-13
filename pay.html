@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Coreconics Payment</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+background:#f4f7ff;
+}
+
+header{
+background:white;
+padding:15px;
+text-align:center;
+box-shadow:0 2px 8px rgba(0,0,0,0.1);
+}
+
+.logo{
+height:70px;
+}
+
+.container{
+text-align:center;
+margin-top:50px;
+}
+
+.option{
+background:white;
+padding:18px;
+margin:20px auto;
+width:260px;
+border-radius:10px;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+cursor:pointer;
+font-weight:bold;
+}
+
+.qr{
+margin-top:20px;
+width:220px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<header>
+<img src="logo.png" class="logo">
+</header>
+
+<div class="container">
+
+<h2 id="amount"></h2>
+
+<div class="option" onclick="payUPI()">
+Pay using UPI App
+</div>
+
+<div class="option" onclick="generateQR()">
+Pay using QR
+</div>
+
+<img id="qr" class="qr">
+
+</div>
+
+<script>
+
+let params=new URLSearchParams(window.location.search);
+let amt=params.get("amount");
+
+document.getElementById("amount").innerHTML="Amount: ₹"+amt;
+
+let upi="upi://pay?pa=s3763826883@slc&pn=Coreconics&am="+amt+"&cu=INR";
+
+function payUPI(){
+
+window.location.href=upi;
+
+}
+
+function generateQR(){
+
+let qr="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data="+encodeURIComponent(upi);
+
+document.getElementById("qr").src=qr;
+
+}
+
+</script>
+
+</body>
+</html>
